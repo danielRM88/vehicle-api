@@ -8,7 +8,7 @@ RSpec.describe 'Locations API', type: :request do
 
   describe 'POST /vehicles/:vehicle_id/locations' do
     let(:valid_attributes) { 
-      { id: SecureRandom.uuid } 
+      { id: SecureRandom.uuid, lat: 10, lng: 20, at: Time.now } 
     }
 
     context 'when the request is valid' do
@@ -16,8 +16,8 @@ RSpec.describe 'Locations API', type: :request do
         post "/vehicles/#{vehicle_id}/locations", params: valid_attributes
       }
 
-      it 'returns status code 201' do
-        expect(response).to have_http_status(201)
+      it 'returns status code 204' do
+        expect(response).to have_http_status(204)
       end
     end
 
@@ -30,10 +30,6 @@ RSpec.describe 'Locations API', type: :request do
 
       it 'returns status code 422' do
         expect(response).to have_http_status(422)
-      end
-
-      it 'returns a validation failure message' do
-        
       end
     end
   end
